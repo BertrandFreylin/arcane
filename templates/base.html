@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css.map' %}" />
+    <link rel="stylesheet" href="{% static 'css/global.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}" />
+    <script src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+    <title>{% block title %}Arcane project{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'img/rocket.png' %}" />
+
+</head>
+<body>
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <a class="navbar-brand" href="{% url "home" %}">Arcane project</a>
+        </div>
+        <div class="navbar-header page-scroll" style="float: right">
+            <a class="navbar-brand" href="{% url "home" %}">By Bertrand Freylin</a>
+        </div>
+    </div>
+</nav>
+<section id="content" style="margin-top: 60px;">
+   {% block content %}{% endblock %}
+</section>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="loading">
+</div>
+<div class="container-fluid panel panel-success">
+    <div class="panel-heading"><span>Product list</span> <button type="button" class="btn btn-primary btn-sm" id="export_csv">Export</button></div>
+<div class="row panel-body" style="margin:0">
+    {%  for product in product_listing %}
+    <div class="col-xs-12 col-md-6 col-lg-4">
+        <div class="col-xs-12 col-md-12 col-lg-12 panel panel-primary">
+            <div class="panel-heading" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ product.name }}</div>
+            <div class="panel-body">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                    <h5 style="font-weight:bold">Price Presta: {{ product.price }} <span class="glyphicon glyphicon-usd" aria-hidden="true"></span></h5>
+                    <h5 style="font-weight:bold">Price Fnac: {% if product.fnac_price and product.fnac_price != 'API blocked' %}<span {% if product.fnac_price > product.price %} style="color:forestgreen;"{% elif product.fnac_price < product.price %} style="color:red;"{% else %}style="color:dodgerblue;"{% endif %}><span>{{ product.fnac_price }}</span> <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>{% elif product.fnac_price == 'API blocked' %}{% else %} <span style="color: dodgerblue">No product found on Fnac</span>{% endif %}</span></h5>
+                    <h5 style="font-weight:bold">Price Amazon: {% if product.amazon_price and product.amazon_price != 'API blocked' %}<span {% if product.amazon_price > product.price %} style="color:forestgreen;"{% elif product.amazon_price < product.price %} style="color:red;"{% else %}style="color:dodgerblue;"{% endif %}><span>{{ product.amazon_price }}</span> <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>{% elif product.amazon_price == 'API blocked' %} <span style="color: red">API blocked</span> {% else %}<span style="color: dodgerblue">No product found on Amazon</span>{% endif %}</span></h5>
+                    <h5 style="font-weight:bold">Price Darty: {% if product.darty_price and product.darty_price != 'API blocked' %}<span {% if product.darty_price > product.price %} style="color:forestgreen;"{% elif product.darty_price < product.price %} style="color:red;"{% else %}style="color:dodgerblue;"{% endif %}><span>{{ product.darty_price }}</span> <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>{% elif product.darty_price == 'API blocked' %}{% else %}<span style="color: dodgerblue">No product found on Darty</span>{% endif %}</span></h5>
+                </div>
+            </div>
+            <div class="panel-footer" style="height:50px">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                    <div class="col-xs-6 col-md-3 col-lg-3">
+                        <a target="_blank" href="{{ product.presta_url }}" class="btn btn-info" role="button" style="width:70px;float:left">Presta</a>
+                    </div>
+                    <div class="col-xs-6 col-md-3 col-lg-3">
+                        <a target="_blank" href="{{ product.fnac_url }}" class="btn btn-info" role="button" style="width:70px;float:left">Fnac</a>
+                    </div>
+                    <div class="col-xs-6 col-md-3 col-lg-3">
+                        <a target="_blank" href="{{ product.amazon_url }}" class="btn btn-info" role="button" style="width:70px;float:left">Amazon</a>
+                    </div>
+                    <div class="col-xs-6 col-md-3 col-lg-3">
+                        <a target="_blank" href="{{ product.darty_url }}" class="btn btn-info" role="button" style="width:70px;float:left">Darty</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+<script type="text/javascript">
+$('#export_csv').click(function(){
+    location.replace('export_csv');
+});
+</script>
+{% endblock %}
